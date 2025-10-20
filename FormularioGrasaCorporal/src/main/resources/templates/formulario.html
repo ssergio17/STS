@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+  <html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de grasa corporal</title>
+  <link rel="stylesheet" href="../static/formularioEstilos.css">
+</head>
+<body>
+  <form action="#" th:action="@{/formulario}" th:object="${persona}" method="post">
+    <h2>Calculadora de grasa corporal</h2>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" th:field="*{nombre}">
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" th:field="*{edad}">
+
+    <label for="peso">Peso (kg):</label>
+    <input type="number" id="peso" th:field="*{peso}">
+
+    <label for="altura">Altura (cm):</label>
+    <input type="number" id="altura" th:field="*{altura}">
+
+    <div class="genero">
+      <label>Género:</label>
+      <div class="opciones">
+        <label><input type="radio" value="Hombre" th:field="*{genero}"> Hombre</label>
+        <label><input type="radio" value="Mujer" th:field="*{genero}"> Mujer</label>
+      </div>
+    </div>
+
+    <button type="submit">Calcular</button>
+  </form>
+</body>
+</html>
