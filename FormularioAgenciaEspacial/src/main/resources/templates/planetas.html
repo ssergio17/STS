@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetas</title>
+</head>
+<body>
+    <form th:object="${agente}" th:action="@{/planetas}" method="post">
+        <label>¿En qué planetas ha estado? </label>
+		<label><input type="checkbox" value="Marte" th:field="*{planetas}">Marte</label>
+		<label><input type="checkbox" value="Trappist-1e" th:field="*{planetas}">Trappist-1e</label>
+		<label><input type="checkbox" value="Kepler-62f" th:field="*{planetas}">Kepler-62f</label>
+		<label><input type="checkbox" value="Kepler-452b" th:field="*{planetas}">Kepler-452b</label>
+		<button type="submit">Continuar</button>
+    </form>
+</body>
+</html>

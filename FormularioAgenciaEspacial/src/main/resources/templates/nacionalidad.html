@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nacionalidad</title>
+</head>
+<body>
+    <form th:object="${agente}" th:action="@{/nacionalidad}" method="post">
+        <label>Seleccione su nacionalidad: </label>
+		<label><input type="radio" value="España" th:field="*{nacionalidad}">España</label>
+		<label><input type="radio" value="India" th:field="*{nacionalidad}">India</label>
+		<label><input type="radio" value="EEUU" th:field="*{nacionalidad}">EEUU</label>
+		<label><input type="radio" value="China" th:field="*{nacionalidad}">China</label>
+		<label><input type="radio" value="Brasil" th:field="*{nacionalidad}">Brasil</label>
+		<button type="submit">Continuar</button>
+    </form>
+</body>
+</html>

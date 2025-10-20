@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetas</title>
+</head>
+<body>
+    <h1>Datos proporcionados</h1>
+	<p th:text="'Objeto completo: ' + ${agente}"></p>
+	<p th:text="'Nombre: ' + ${agente.nombre}"></p>
+	<p th:text="'Nacionalidad: ' + ${agente.nacionalidad}"></p>
+	<p>Planetas visitados: </p>
+	<ul>
+		<li th:each="planeta : ${agente.planetas}" th:text="${planeta}"></li>
+	</ul>
+</body>
+</html>
