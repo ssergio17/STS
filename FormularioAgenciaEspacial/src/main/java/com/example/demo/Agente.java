@@ -6,12 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class Agente {
-	@NotNull(message = "El nombre no puede estar vacío")
-	@NotEmpty(message = "El nombre no puede estar vacío")
-	private String nombre;
-	@NotNull(message = "Debe seleccionar una nacionalidad")
-	@NotEmpty(message = "Debe seleccionar una nacionalidad")
-	private String nacionalidad;
+	private String nombre,nacionalidad;
 	private List<String> planetas = new ArrayList<>();
 	
 	public Agente() {}
