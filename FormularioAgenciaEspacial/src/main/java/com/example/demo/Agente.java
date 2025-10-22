@@ -2,11 +2,16 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class Agente {
-	@NotNull
-	private String nombre, nacionalidad;
+	@NotNull(message = "El nombre no puede estar vacío")
+	@NotEmpty(message = "El nombre no puede estar vacío")
+	private String nombre;
+	@NotNull(message = "Debe seleccionar una nacionalidad")
+	@NotEmpty(message = "Debe seleccionar una nacionalidad")
+	private String nacionalidad;
 	private List<String> planetas = new ArrayList<>();
 	
 	public Agente() {}

@@ -18,32 +18,32 @@ public class FormularioControlador {
 		return "nombre";
 	}
 	
+	@GetMapping("/nacionalidad")
+	public String nacionalidad(@ModelAttribute Agente formAgente, Model modelo) {
+		modelo.addAttribute("agente", agente);
+		return "nacionalidad";
+	}
+	
+	@GetMapping("/planetas")
+	public String planetas(@ModelAttribute Agente formAgente, Model modelo) {
+		modelo.addAttribute("agente", agente);
+		return "planetas";
+	}
+	
 	@PostMapping("/nombre")
-	public String FormularioNombre(Agente formAgente) {
+	public String FormularioNombre(Agente formAgente, BindingResult br) {
 		agente.setNombre(formAgente.getNombre());
 		return "nacionalidad";
 	}
 	
-	@GetMapping("/nacionalidad")
-	public String InicioNacionalidad(@ModelAttribute Model modelo) {
-		modelo.addAttribute("agente", agente);
-		return "nacionalidad";
-	}
-	
 	@PostMapping("/nacionalidad")
-	public String FormularioNacionalidad(Agente formAgente) {
+	public String FormularioNacionalidad(Agente formAgente, BindingResult br) {
 		agente.setNacionalidad(formAgente.getNacionalidad());
 		return "planetas";
 	}
 	
-	@GetMapping("/planetas")
-	public String InicioPlanetas(@ModelAttribute Model modelo) {
-		modelo.addAttribute("agente", agente);
-		return "planetas";
-	}
-	
 	@PostMapping("/planetas")
-	public String FormularioPlanetas(Agente formAgente, Model modelo) {
+	public String FormularioPlanetas(Agente formAgente, Model modelo, BindingResult br) {
 		agente.setPlanetas(formAgente.getPlanetas());
 		modelo.addAttribute("agente", agente);
 		return "resultado";
