@@ -13,6 +13,12 @@
 	<ul>
 		<li th:each="planeta : ${planetasAgente}" th:text="${planeta}"></li>
 	</ul>
-	<a th:href="@{/planetas}">Volver</a>
+	<form th:action="@{/}">
+		<input type="hidden" name ="etapaVolver" value="volverPlanetas">
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
+		<input type="hidden" name="nacionalidadAgente" th:value="${nacionalidadAgente}">
+		<input type="hidden" name="planetasAgente" th:value="${planetasAgente}">
+		<button type="submit">Volver</button>
+	</form>
 </body>
 </html>

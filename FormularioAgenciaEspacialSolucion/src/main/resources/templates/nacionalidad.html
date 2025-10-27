@@ -16,11 +16,12 @@
 		<input type="hidden" name ="etapa" value="nacionalidad">
 		<p th:if="${errores}" th:text="${errores}"></p>
 		<button type="submit">Continuar</button>
-		
-		<form th:action="@{/}" method="post">
-			<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
-			<button type="submit">Volver</button>
-		</form>
     </form>
+	
+	<form th:action="@{/}" method="post">
+		<input type="hidden" name ="etapaVolver" value="volverNombre">
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
+		<button type="submit">Volver</button>
+	</form>
 </body>
 </html>

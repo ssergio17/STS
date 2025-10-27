@@ -15,16 +15,6 @@ public class FormularioControlador {
 		return "nombre";
 	}
 	
-	@GetMapping("/nacionalidad")
-	public String Nacionalidad() {
-		return "nacionalidad";
-	}
-	
-	@GetMapping("/planetas")
-	public String Planetas() {
-		return "planetas";
-	}
-	
 	@PostMapping("/")
 	public String ProcesarDatos(
 			
@@ -32,11 +22,30 @@ public class FormularioControlador {
 			@RequestParam(name = "nacionalidadAgente", required = false) String nacionalidadAgente,
 			@RequestParam(name = "planetasAgente", required = false) List<String> planetasAgente,
 			@RequestParam(name = "etapa", required = false) String etapa,
+			@RequestParam(name = "etapaVolver", required = false) String etapaVolver,
 			Model model
 			
 			) {
 		
 		String errores = "";
+		
+		if("volverNombre".equals(etapaVolver)) {
+			model.addAttribute("nombreAgente", nombreAgente);
+			return "nombre";
+		}
+		
+		if("volverNacionalidad".equals(etapaVolver)) {
+			model.addAttribute("nombreAgente", nombreAgente);
+			model.addAttribute("nacionalidadAgente", nacionalidadAgente);
+			return "nacionalidad";
+		}
+		
+		if("volverPlanetas".equals(etapaVolver)) {
+			model.addAttribute("nombreAgente", nombreAgente);
+			model.addAttribute("nacionalidadAgente", nacionalidadAgente);
+			model.addAttribute("planetasAgente", planetasAgente);
+			return "planetas";
+		}
 		
 		if("nombre".equals(etapa)) {
 			if(nombreAgente != null && !nombreAgente.isBlank()) {

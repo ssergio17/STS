@@ -8,9 +8,8 @@
 <body>
     <form th:action="@{/}" method="post">
         <label>Nombre: </label>
-        <input type="text" name="nombreAgente">
+        <input type="text" name="nombreAgente" th:value="${nombreAgente}">
 		<p th:if="${errores}" th:text="${errores}"></p>
-		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
 		<input type="hidden" name="etapa" value="nombre">
 		<button type="submit">Enviar</button>
     </form>
