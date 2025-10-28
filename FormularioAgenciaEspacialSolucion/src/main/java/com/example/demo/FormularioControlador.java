@@ -29,22 +29,21 @@ public class FormularioControlador {
 		
 		String errores = "";
 		
-		if("volverNombre".equals(etapaVolver)) {
-			model.addAttribute("nombreAgente", nombreAgente);
-			return "nombre";
-		}
-		
-		if("volverNacionalidad".equals(etapaVolver)) {
-			model.addAttribute("nombreAgente", nombreAgente);
-			model.addAttribute("nacionalidadAgente", nacionalidadAgente);
-			return "nacionalidad";
-		}
-		
-		if("volverPlanetas".equals(etapaVolver)) {
-			model.addAttribute("nombreAgente", nombreAgente);
-			model.addAttribute("nacionalidadAgente", nacionalidadAgente);
-			model.addAttribute("planetasAgente", planetasAgente);
-			return "planetas";
+		if(etapaVolver != null) {
+			switch(etapaVolver) {
+				case "volverNombre":
+					model.addAttribute("nombreAgente", nombreAgente);
+					return "nombre";
+				case "volverNacionalidad":
+					model.addAttribute("nombreAgente", nombreAgente);
+					model.addAttribute("nacionalidadAgente", nacionalidadAgente);
+					return "nacionalidad";
+				case "volverPlanetas":
+					model.addAttribute("nombreAgente", nombreAgente);
+					model.addAttribute("nacionalidadAgente", nacionalidadAgente);
+					model.addAttribute("planetasAgente", planetasAgente);
+					return "planetas";
+			}
 		}
 		
 		if("nombre".equals(etapa)) {
@@ -53,6 +52,7 @@ public class FormularioControlador {
 				return "nacionalidad";
 			}else {
 				errores = "El nombre no puede estar vacío";
+				model.addAttribute("nombreAgente", nombreAgente);
 				model.addAttribute("errores", errores);
 				return "nombre";
 			}
@@ -63,6 +63,7 @@ public class FormularioControlador {
 				return "planetas";
 			}else {
 				errores = "Debe seleccionar una nacionalidad";
+				model.addAttribute("nombreAgente", nombreAgente);
 				model.addAttribute("errores", errores);
 				return "nacionalidad";
 			}			
@@ -74,6 +75,7 @@ public class FormularioControlador {
 				return "resultados";
 			}else {
 				errores = "Debe seleccionar al menos un planeta";
+				model.addAttribute("nombreAgente", nombreAgente);
 				model.addAttribute("errores", errores);
 				return "planetas";
 			}

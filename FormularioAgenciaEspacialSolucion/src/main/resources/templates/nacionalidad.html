@@ -8,11 +8,18 @@
 <body>
     <form th:action="@{/}" method="post">
         <label>Seleccione su nacionalidad: </label>
-		<label><input type="radio" value="España" name="nacionalidadAgente">España</label>
-		<label><input type="radio" value="India" name="nacionalidadAgente">India</label>
-		<label><input type="radio" value="EEUU" name="nacionalidadAgente">EEUU</label>
-		<label><input type="radio" value="China" name="nacionalidadAgente">China</label>
-		<label><input type="radio" value="Brasil" name="nacionalidadAgente">Brasil</label>
+		<label><input type="radio" value="España" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'España'}">España</label>
+		<label><input type="radio" value="India" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'India'}">India</label>
+		<label><input type="radio" value="EEUU" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'EEUU'}">EEUU</label>
+		<label><input type="radio" value="China" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'China'}">China</label>
+		<label><input type="radio" value="Brasil" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'Brasil'}">Brasil</label>
+		
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
 		<input type="hidden" name ="etapa" value="nacionalidad">
 		<p th:if="${errores}" th:text="${errores}"></p>
 		<button type="submit">Continuar</button>
