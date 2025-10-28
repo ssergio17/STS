@@ -1,11 +1,17 @@
 package com.example.demo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class FormularioControlador {
@@ -23,9 +29,10 @@ public class FormularioControlador {
 			@RequestParam(name = "planetasAgente", required = false) List<String> planetasAgente,
 			@RequestParam(name = "etapa", required = false) String etapa,
 			@RequestParam(name = "etapaVolver", required = false) String etapaVolver,
+			HttpServletRequest request,
 			Model model
 			
-			) {
+			) throws UnsupportedEncodingException {
 		
 		String errores = "";
 		
@@ -47,6 +54,26 @@ public class FormularioControlador {
 		}
 		
 		if("nombre".equals(etapa)) {
+			// Caracteres especiales
+			System.out.println("Prueba de POST");
+			System.out.println("Texto recibido: " + nombreAgente);
+			System.out.println("Content-Type: " + request.getContentType());
+			System.out.println("Encoding: " + request.getCharacterEncoding());
+			System.out.println("-----------------------------------------------");
+			
+			// Codificación de URL
+			System.out.println("Prueba de codificación con (POST)");
+		    System.out.println("Método HTTP: " + request.getMethod());
+		    System.out.println("Content-Type: " + request.getContentType());
+		    System.out.println("Character Encoding: " + request.getCharacterEncoding());
+		    System.out.println("-----------------------------------------------");
+		    
+		    if (nombreAgente != null) {
+		        String codificado = URLEncoder.encode(nombreAgente, StandardCharsets.UTF_8);
+		        System.out.println("Valor original: " + nombreAgente);
+		        System.out.println("Codificado con URLEncoder: " + codificado);
+		    }
+		    
 			if(nombreAgente != null && !nombreAgente.isBlank()) {
 				model.addAttribute("nombreAgente", nombreAgente);
 				return "nacionalidad";
