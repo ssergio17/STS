@@ -1,22 +1,21 @@
 package com.example.demo;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-public class FormularioControlador {
+public class ControladorFormulario {
 	
 	@GetMapping("/")
 	public String Formulario() {
@@ -93,7 +92,7 @@ public class FormularioControlador {
 			}			
 		}else if("planetas".equals(etapa)) {
 			if(planetasAgente != null && !planetasAgente.isEmpty()) {
-				Cookie cookie = new Cookie("planetasAgente", String.join(",", planetasAgente));
+				Cookie cookie = new Cookie("planetasAgente", String.join("|", planetasAgente));
 				cookie.setPath("/");
 				response.addCookie(cookie);
 				

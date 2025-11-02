@@ -1,22 +1,22 @@
 package com.example.demo;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class FormularioControlador {
+public class ControladorFormulario {
 	
 	@GetMapping("/")
 	public String Formulario() {
@@ -31,27 +31,26 @@ public class FormularioControlador {
 			@RequestParam(name = "planetasAgente", required = false) List<String> planetasAgente,
 			@RequestParam(name = "etapa", required = false) String etapa,
 			@RequestParam(name = "etapaVolver", required = false) String etapaVolver,
-			HttpServletRequest request,
-			HttpServletResponse response,
+			HttpSession session,
 			Model model
 			
-			) throws UnsupportedEncodingException {
+			) {
 		
 		String errores = "";
 		
 		if(etapaVolver != null) {
 			switch(etapaVolver) {
 				case "volverNombre":
-					model.addAttribute("nombreAgente", getCookie(request, "nombreAgente"));
+					model.addAttribute("nombreAgente", session.getAttribute("nombreAgente"));
 					return "nombre";
 				case "volverNacionalidad":
-					model.addAttribute("nombreAgente", getCookie(request, "nombreAgente"));
-					model.addAttribute("nacionalidadAgente", getCookie(request, "nacionalidadAgente"));
+					model.addAttribute("nombreAgente", session.getAttribute("nombreAgente"));
+					model.addAttribute("nacionalidadAgente", session.getAttribute("nacionalidadAgente"));
 					return "nacionalidad";
 				case "volverPlanetas":
-					model.addAttribute("nombreAgente", getCookie(request, "nombreAgente"));
-					model.addAttribute("nacionalidadAgente", getCookie(request, "nacionalidadAgente"));
-					model.addAttribute("planetasAgente", planetasAgente);
+					model.addAttribute("nombreAgente", session.getAttribute("nombreAgente"));
+					model.addAttribute("nacionalidadAgente", session.getAttribute("nacionalidadAgente"));
+					model.addAttribute("planetasAgente", session.getAttribute("planetasAgente"));
 					return "planetas";
 			}
 		}
@@ -64,9 +63,7 @@ public class FormularioControlador {
 		    }
 		    
 			if(nombreAgente != null && !nombreAgente.isBlank()) {
-				Cookie cookie = new Cookie("nombreAgente", nombreAgente);
-		    	cookie.setPath("/");
-		    	response.addCookie(cookie); 
+				session.setAttribute("nombreAgente", nombreAgente); 
 		    	
 				model.addAttribute("nombreAgente", nombreAgente);
 				return "nacionalidad";
@@ -78,11 +75,9 @@ public class FormularioControlador {
 			}
 		}else if("nacionalidad".equals(etapa)) {
 			if(nacionalidadAgente != null && !nacionalidadAgente.isBlank()) {
-				Cookie cookie = new Cookie("nacionalidadAgente", nacionalidadAgente);
-				cookie.setPath("/");
-				response.addCookie(cookie);
+				session.setAttribute("nacionalidadAgente", nacionalidadAgente);
 				
-				model.addAttribute("nombreAgente", getCookie(request, "nombreAgente"));
+				model.addAttribute("nombreAgente", session.getAttribute("nombreAgente"));
 				model.addAttribute("nacionalidadAgente", nacionalidadAgente);
 				return "planetas";
 			}else {
@@ -93,12 +88,10 @@ public class FormularioControlador {
 			}			
 		}else if("planetas".equals(etapa)) {
 			if(planetasAgente != null && !planetasAgente.isEmpty()) {
-				Cookie cookie = new Cookie("planetasAgente", String.join(",", planetasAgente));
-				cookie.setPath("/");
-				response.addCookie(cookie);
+				session.setAttribute("planetasAgente", planetasAgente);
 				
-				model.addAttribute("nombreAgente", getCookie(request, "nombreAgente"));
-				model.addAttribute("nacionalidadAgente", getCookie(request, "nacionalidadAgente"));
+				model.addAttribute("nombreAgente", session.getAttribute("nombreAgente"));
+				model.addAttribute("nacionalidadAgente", session.getAttribute("nacionalidadAgente"));
 				model.addAttribute("planetasAgente", planetasAgente);
 				return "resultados";
 			}else {
@@ -110,23 +103,6 @@ public class FormularioControlador {
 		}
 		
 		return "nombre";
-	}
-	
-	private String getCookie(
-			
-			HttpServletRequest request, 
-			String nombre
-			
-			) {
-		
-		if(request.getCookies() != null) {
-			for(Cookie c : request.getCookies()) {
-				if(c.getName().equals(nombre)) {
-					return c.getValue();
-				}
-			}
-		}
-		return null;
 	}
 	
 }
