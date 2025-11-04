@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetas</title>
+</head>
+<body>
+    <h1>Datos proporcionados</h1>
+	<p th:text="'Nombre: ' + ${nombreAgente}"></p>
+	<p th:text="'Nacionalidad: ' + ${nacionalidadAgente}"></p>
+	<p>Planetas visitados: </p>
+	<ul>
+		<li th:each="planeta : ${planetasAgente}" th:text="${planeta}"></li>
+	</ul>
+	<form th:action="@{/}" method="post">
+		<input type="hidden" name ="etapaVolver" value="volverPlanetas">
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
+		<input type="hidden" name="nacionalidadAgente" th:value="${nacionalidadAgente}">
+		<input type="hidden" th:each="planeta : ${planetasAgente}" name="planetasAgente" th:value="${planeta}">
+		<button type="submit">Volver</button>
+	</form>
+</body>
+</html>

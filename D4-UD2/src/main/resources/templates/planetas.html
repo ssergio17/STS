@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetas</title>
+</head>
+<body>
+    <form th:action="@{/}" method="post">
+        <label>¿En qué planetas ha estado? </label>
+		<label><input type="checkbox" value="Marte" name="planetasAgente"
+			th:checked="${planetasAgente != null and planetasAgente.contains('Marte')}">Marte</label>
+		<label><input type="checkbox" value="Trappist-1e" name="planetasAgente"
+			th:checked="${planetasAgente != null and planetasAgente.contains('Trappist-1e')}">Trappist-1e</label>
+		<label><input type="checkbox" value="Kepler-62f" name="planetasAgente"
+			th:checked="${planetasAgente != null and planetasAgente.contains('Kepler-62f')}">Kepler-62f</label>
+		<label><input type="checkbox" value="Kepler-452b" name="planetasAgente"
+			th:checked="${planetasAgente != null and planetasAgente.contains('Kepler-452b')}">Kepler-452b</label>
+		
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
+		<input type="hidden" name="nacionalidadAgente" th:value="${nacionalidadAgente}">
+		<input type="hidden" name ="etapa" value="planetas">
+		<p th:if="${errores}" th:text="${errores}"></p>
+		
+		<button type="submit">Continuar</button>
+    </form>
+	
+	<form th:action="@{/}" method="post">
+		<input type="hidden" name="etapaVolver" value="volverNacionalidad">
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
+		<input type="hidden" name="nacionalidadAgente" th:value="${nacionalidadAgente}">
+		<button type="submit">Volver</button>
+	</form>
+	
+</body>
+</html>

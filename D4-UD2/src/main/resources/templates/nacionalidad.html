@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nacionalidad</title>
+</head>
+<body>
+    <form th:action="@{/}" method="post">
+        <label>Seleccione su nacionalidad: </label>
+		<label><input type="radio" value="España" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'España'}">España</label>
+		<label><input type="radio" value="India" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'India'}">India</label>
+		<label><input type="radio" value="EEUU" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'EEUU'}">EEUU</label>
+		<label><input type="radio" value="China" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'China'}">China</label>
+		<label><input type="radio" value="Brasil" name="nacionalidadAgente"
+			th:checked="${nacionalidadAgente == 'Brasil'}">Brasil</label>
+		
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
+		<input type="hidden" name ="etapa" value="nacionalidad">
+		<p th:if="${errores}" th:text="${errores}"></p>
+		<button type="submit">Continuar</button>
+    </form>
+	
+	<form th:action="@{/}" method="post">
+		<input type="hidden" name ="etapaVolver" value="volverNombre">
+		<input type="hidden" name="nombreAgente" th:value="${nombreAgente}">
+		<button type="submit">Volver</button>
+	</form>
+</body>
+</html>

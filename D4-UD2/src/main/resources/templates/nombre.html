@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre</title>
+</head>
+<body>
+    <form th:action="@{/}" method="post">
+        <label th:text="#{nombre.name}"></label>
+        <input type="text" name="nombreAgente" th:value="${nombreAgente}">
+		<p th:if="${errores}" th:text="${errores}"></p>
+		<input type="hidden" name="etapa" value="nombre">
+		<button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
