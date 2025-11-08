@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+<body>
+	<label>Bienvenid@ </label>
+    <form th:action="@{/pagina1}" method="post">
+        <input type="hidden" name="pag" value="pagina1">
+		<button type="submit">Página 1</button>
+    </form>
+	
+	<form th:action="@{/pagina2}" method="post">
+	        <input type="hidden" name="pag" value="pagina2">
+			<button type="submit">Página 2</button>
+	</form>
+</body>
+</html>
