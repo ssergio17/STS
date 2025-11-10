@@ -6,16 +6,20 @@
     <title>Login</title>
 </head>
 <body>
+<label>Bienvenid@. Iniciar sesión: </label><br><br>
+<form th:action="@{/login}" method="post">
 	
-	<label>Bienvenid@. Iniciar sesión: </label><br><br>
-    <form th:action="@{/login}" method="post">
-		
-        <label>Usuario: <input type="text" name="user" th:value="${user}"></label><br><br>
-		<label>Contraseña: <input type="password" name="password" th:value="${password}"></label><br><br>
-		<button type="submit">Iniciar sesión</button><br>
-		
-    </form><br>
-	<a th:href="@{/registro}"><button type="button">Registrarse</button></a>
-	<p th:if="${errors}" th:text="${errors}" style="color: red"></p>
+    <label>Usuario: 
+		<input type="text" name="user" th:value="${user}">
+	</label><br><br>
+	
+	<label>Contraseña: 
+		<input type="password" name="password" th:value="${password}">
+	</label><br><br>
+	<button type="submit">Iniciar sesión</button><br>
+	
+</form><br>
+<a th:href="@{/registro}"><button type="button">Registrarse</button></a>
+<p th:if="${errors}" th:text="${errors}" style="color: red"></p>
 </body>
 </html>

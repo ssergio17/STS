@@ -6,16 +6,21 @@
     <title>Registro</title>
 </head>
 <body>
+<label>Antes de acceder debe registrarse</label><br>
+<form th:action="@{/registro}" method="post">
 	
-	<label>Antes de acceder debe registrarse</label><br>
-    <form th:action="@{/registro}" method="post">
-		
-        <label>Nuevo usuario: <input type="text" name="user" th:value="${user}"></label><br>
-		<label>Nueva contraseña: <input type="password" name="password" th:value="${password}"></label><br>
-		<p th:if="${errors}" th:text="${errors}"></p>
-		<button type="submit">Registrarse</button>
-		
-    </form>
+    <label>Nuevo usuario: 
+		<input type="text" name="user" th:value="${user}">
+	</label><br>
 	
+	<label>Nueva contraseña: 
+		<input type="password" name="password" th:value="${password}">
+	</label><br>
+	
+	<p th:if="${errors}" th:text="${errors}"></p>
+	<button type="submit">Registrarse</button>
+	
+</form>
+<a th:href="@{/login}"><button type="button">Volver a Iniciar sesión</button></a>
 </body>
 </html>
