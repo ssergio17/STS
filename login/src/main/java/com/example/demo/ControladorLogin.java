@@ -14,7 +14,7 @@ public class ControladorLogin {
 	
 	private static final Map<String, String> USERS = new HashMap<>();
 	private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	
+
 	@GetMapping("/")
 	public String Root(HttpSession session) {
 		if(!logged(session)) return "login";
@@ -59,6 +59,7 @@ public class ControladorLogin {
 			HttpSession session,
 			Model model
 			) {
+		System.out.println(user);
 		String hash = USERS.get(user);
 		
 		if(!ValidString(user) || !ValidString(password)) {
@@ -72,6 +73,8 @@ public class ControladorLogin {
 		if(hash != null) {
 			if(encoder.matches(password, hash)) {
 				session.setAttribute("user", user);
+				model.addAttribute("user",user); // Línea añadida - Corrección de error
+				System.out.println(USERS.toString());
 				return "pagina1";
 			}else {
 				model.addAttribute("user", user);
@@ -116,6 +119,7 @@ public class ControladorLogin {
 		USERS.put(user, hash);
 		session.setAttribute("user", user);
 		model.addAttribute("user", user);
+		System.out.println(USERS.toString());
 		
 		return "pagina1";
 	}
