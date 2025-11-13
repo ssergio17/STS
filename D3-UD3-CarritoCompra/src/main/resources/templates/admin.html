@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:thymeleaf="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Administración</title>
+</head>
+<body>
+
+<h2>Administración de Stock</h2>
+
+<table border="1">
+    <tr>
+        <th>Producto</th>
+        <th>Stock actual</th>
+    </tr>
+
+    <tr th:each="p : ${products}">
+        <td th:text="${p.key}"></td>
+        <td th:text="${p.value}"></td>
+    </tr>
+</table>
+
+<br>
+
+<h3>Actualizar Stock</h3>
+
+<form action="/admin/actualizar" method="post">
+    <label>Producto:</label>
+    <input type="text" name="prod" required>
+
+    <label>Nuevo stock:</label>
+    <input type="number" name="quantity" required min="0">
+
+    <button type="submit">Actualizar</button>
+</form>
+
+<br>
+<a href="/carrito">Volver al carrito</a>
+
+</body>
+</html>
