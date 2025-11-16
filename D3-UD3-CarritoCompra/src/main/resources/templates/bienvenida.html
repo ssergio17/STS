@@ -8,7 +8,7 @@
 
 <h2>Introduce tu nombre para comenzar la compra</h2>
 
-<form action="/login" method="post">
+<form th:action="@{/}" method="post">
     <label>Nombre:</label>
     <input type="text" name="user" required>
     <button type="submit">Entrar</button>

@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Compra realizada</title>
+    <title>Confirmación</title>
 </head>
 <body>
 
-<h2>Compra realizada con éxito</h2>
-<p>Tu pedido ha sido registrado y el stock ha sido actualizado.</p>
+<h1>Compra realizada</h1>
+
+<p>Gracias <b th:text="${user}"></b> por tu compra.</p>
+
+<h2>Resumen:</h2>
+
+<table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="entry : ${purchased}">
+        <td th:text="${entry.key}"></td>
+        <td th:text="${entry.value}"></td>
+    </tr>
+    </tbody>
+</table>
 
 <br>
-<a href="/carrito">Volver al carrito (carrito vacío)</a>
+
+<form th:action="@{/carrito}" method="get">
+    <button type="submit">Volver al carrito</button>
+</form>
 
 </body>
 </html>
+

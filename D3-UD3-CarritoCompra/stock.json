@@ -1,0 +1,17 @@
+{
+  "Pizza" : {
+    "name" : "Pizza",
+    "price" : 12.5,
+    "stock" : 14
+  },
+  "Hamburguesa" : {
+    "name" : "Hamburguesa",
+    "price" : 8.9,
+    "stock" : 8
+  },
+  "CocaCola" : {
+    "name" : "CocaCola",
+    "price" : 2.5,
+    "stock" : 41
+  }
+}

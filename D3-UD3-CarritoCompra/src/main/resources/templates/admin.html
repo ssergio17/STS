@@ -1,41 +1,44 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:thymeleaf="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Administración</title>
 </head>
 <body>
 
-<h2>Administración de Stock</h2>
+<h1>Panel de administración</h1>
 
-<table border="1">
-    <tr>
-        <th>Producto</th>
-        <th>Stock actual</th>
-    </tr>
+<form th:action="@{/admin/update}" method="post">
 
-    <tr th:each="p : ${products}">
-        <td th:text="${p.key}"></td>
-        <td th:text="${p.value}"></td>
-    </tr>
-</table>
+    <table border="1" cellpadding="5">
+        <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio (€)</th>
+            <th>Stock actual</th>
+            <th>Nuevo stock</th>
+        </tr>
+        </thead>
 
-<br>
+        <tbody>
+        <tr th:each="prod : ${products}">
+            <td th:text="${prod.value.name}"></td>
+            <td th:text="${prod.value.price}"></td>
+            <td th:text="${prod.value.stock}"></td>
 
-<h3>Actualizar Stock</h3>
+            <td>
+                <input type="number"
+                       min="0"
+                       th:name="${prod.value.name}"
+                       th:value="${prod.value.stock}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<form action="/admin/actualizar" method="post">
-    <label>Producto:</label>
-    <input type="text" name="prod" required>
+    <button type="submit">Actualizar stock</button>
 
-    <label>Nuevo stock:</label>
-    <input type="number" name="quantity" required min="0">
-
-    <button type="submit">Actualizar</button>
 </form>
-
-<br>
-<a href="/carrito">Volver al carrito</a>
 
 </body>
 </html>

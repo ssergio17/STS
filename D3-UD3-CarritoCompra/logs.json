@@ -1,0 +1,57 @@
+[ {
+  "user" : "sergio",
+  "date" : "2025-11-16T22:05:56.857288",
+  "products" : {
+    "Pizza" : 3,
+    "CocaCola" : 1,
+    "Hamburguesa" : 2
+  }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T22:27:07.150290300",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T22:27:45.746883400",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T22:31:34.111021100",
+  "products" : {
+    "Pizza" : 1,
+    "CocaCola" : 6,
+    "Hamburguesa" : 3
+  }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T22:45:56.009071400",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T22:46:49.023706300",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T23:05:08.451161100",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T23:06:29.331296800",
+  "products" : {
+    "Pizza" : 2,
+    "CocaCola" : 2,
+    "Hamburguesa" : 2
+  }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T23:06:37.795572",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T23:06:40.506008900",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-16T23:10:01.929203700",
+  "products" : { }
+} ]

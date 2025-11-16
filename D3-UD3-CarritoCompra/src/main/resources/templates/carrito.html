@@ -1,51 +1,56 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Carrito</title>
 </head>
 <body>
 
-<h2>Hola, <span th:text="${user}">Usuario</span></h2>
+<h1>Hola <span th:text="${user}">Usuario</span></h1>
+<h2>Carrito de compra</h2>
 
-<h3>Carrito de compra</h3>
-
-<div th:if="${error}" style="color:red; font-weight: bold;">
-    <p th:text="${error}"></p>
+<div th:if="${errors}">
+    <p style="color:red" th:text="${errors}"></p>
 </div>
 
-<form action="/actualizar" method="post">
+<form th:action="@{/carrito}" method="post">
 
-    <table border="1">
+    <table border="1" cellpadding="5">
+        <thead>
         <tr>
             <th>Producto</th>
+            <th>Precio (€)</th>
             <th>Stock disponible</th>
             <th>Cantidad</th>
         </tr>
+        </thead>
 
-        <tr th:each="p : ${products}">
-            <td th:text="${p.key}"></td>
-            <td th:text="${p.value}"></td>
+        <tbody>
+        <tr th:each="prod : ${products}">
+            <td th:text="${prod.value.name}"></td>
+            <td th:text="${prod.value.price}"></td>
+            <td th:text="${prod.value.stock}"></td>
 
             <td>
                 <input type="number"
-                       th:name="'prod_' + ${p.key}"
-                       th:value="${cart[p.key]}"
-                       min="0">
+                       min="0"
+                       th:name="${prod.value.name}"
+                       th:value="${cart[prod.value.name]}">
             </td>
         </tr>
+        </tbody>
     </table>
 
-    <br>
+    <p><b>Total: </b> <span th:text="${total}"></span> €</p>
+
     <button type="submit">Actualizar carrito</button>
+
 </form>
 
-<form action="/finalizar" method="post">
-    <button type="submit" style="margin-top: 10px;">Finalizar compra</button>
+<form th:action="@{/confirmar}" method="post">
+    <button type="submit">Finalizar compra</button>
 </form>
-
-<br><br>
-<a href="/admin">Ir a administración</a>
 
 </body>
 </html>
+
