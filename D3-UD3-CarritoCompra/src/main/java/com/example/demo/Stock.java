@@ -1,81 +1,78 @@
 package com.example.demo;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Stock {
-	protected Map<String, Product> stock;
-	protected final static String FILE_PATH = "stock.json";
 	
+	protected Map<String, Integer> stock;
+	protected final static String FILE_PATH = "stock.data";
+
 	public Stock() {
 		super();
-		stock = new HashMap<>();
-		load();
+		stock = load();
 	}
-	
-	public void load() {
-		ObjectMapper mapper = new ObjectMapper();
-		
-		try {
-			this.stock = mapper.readValue(new File(FILE_PATH),
-					new TypeReference<Map<String, Product>>() {});
-		} catch(IOException e) {
-			System.out.println(e.getMessage());
+
+	public Map<String,Integer> load() {
+		// TRAZA PARA SABER DÓNDE RESUELVE LA RUTA RELATIVA:
+        // System.out.println((new File(RUTA_FICHERO)).getAbsolutePath());
+		// intentamos leer el mapa del archivo, si no podemos quedará vacío
+		try (
+			ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(FILE_PATH))
+		) {
+			return (HashMap<String, Integer>) entrada.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			System.err.println("Problema leyendo archivo " + FILE_PATH);
+             return new HashMap<String,Integer>();
 		}
+       
 	}
-	
+
 	public boolean save() {
-		ObjectMapper mapper = new ObjectMapper();
-		
-		try {
-			mapper.writerWithDefaultPrettyPrinter().
-			writeValue(new File(FILE_PATH), stock);
-		} catch(FileNotFoundException e) {
-			System.out.println("El fichero no existe");
-			System.out.println("Creando fichero vacío...");
-			stock = new HashMap<>();
-		} catch(IOException e) {
-			System.out.println(e.getMessage());
+		try (
+				ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(FILE_PATH))
+		) {
+			salida.writeObject(stock);
+		} catch (IOException e1) {
+			System.err.println("ERROR GUARDANDO STOCK");
 			return false;
 		}
 		return true;
 	}
-	
-	public Product getProduct(String product) {
-		return stock.get(product);
-	}
-	
-	public double getPrice(String product) {
-		return stock.get(product).getPrice();
-	}
-	
-	public Map<String, Product> getAll() {
+
+	public Map<String, Integer> getAll() {
 		return stock;
 	}
-	
-	public int getStock(String product) {
-		return stock.get(product).getStock();
+
+	public Integer getOne(String producto) {
+		return stock.get(producto);
 	}
-	
-	public void addProduct(Product product) {
-		stock.put(product.getName(), product);
+
+	public void add(String producto, Integer cantidad) {
+		stock.put(producto, cantidad);
 		save();
 	}
-	
-	public void removeProduct(String product) {
-		stock.remove(product);
-		save();
+
+	public void del(String producto) {
+	        stock.remove(producto);
+	    	save();
+		}
+
+	public void modify(String producto, Integer cantidad) {
+			stock.put(producto, cantidad);
+	    	save();
+		}
+
+    
+	public static void main(String[] args) {
+		Stock stock = new Stock();
+		System.out.println(stock.getAll());
+		stock.add("Platanos", 10);
+		stock.add("Kiwis", 20);
+		stock.add("Naranjas", 15);
 	}
-	
-	public void modifyProductStock(String product, int quantity) {
-		stock.get(product).setStock(quantity);;
-		save();
-	}
-	
 }

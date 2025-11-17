@@ -27,21 +27,24 @@
 
         <tbody>
         <tr th:each="prod : ${products}">
-            <td th:text="${prod.value.name}"></td>
-            <td th:text="${prod.value.price}"></td>
-            <td th:text="${prod.value.stock}"></td>
+            
+            <td th:text="${prod.key}"></td>
+
+            <td th:text="${prices[prod.key]}"></td>
+
+            <td th:text="${prod.value}"></td>
 
             <td>
                 <input type="number"
                        min="0"
-                       th:name="${prod.value.name}"
-                       th:value="${cart[prod.value.name]}">
+                       th:name="${prod.key}"
+                       th:value="${cart[prod.key]}">
             </td>
         </tr>
         </tbody>
     </table>
 
-    <p><b>Total: </b> <span th:text="${total}"></span> €</p>
+    <p><b>Total: </b><span th:text="${total}"></span> €</p>
 
     <button type="submit">Actualizar carrito</button>
 
@@ -53,4 +56,3 @@
 
 </body>
 </html>
-

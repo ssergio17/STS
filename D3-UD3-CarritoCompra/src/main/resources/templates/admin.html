@@ -22,15 +22,18 @@
 
         <tbody>
         <tr th:each="prod : ${products}">
-            <td th:text="${prod.value.name}"></td>
-            <td th:text="${prod.value.price}"></td>
-            <td th:text="${prod.value.stock}"></td>
+            
+            <td th:text="${prod.key}"></td>
+
+            <td th:text="${prices[prod.key]}"></td>
+
+            <td th:text="${prod.value}"></td>
 
             <td>
                 <input type="number"
                        min="0"
-                       th:name="${prod.value.name}"
-                       th:value="${prod.value.stock}">
+                       th:name="${prod.key}"
+                       th:value="${prod.value}">
             </td>
         </tr>
         </tbody>
