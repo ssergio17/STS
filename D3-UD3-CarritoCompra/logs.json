@@ -54,4 +54,16 @@
   "user" : "sergio",
   "date" : "2025-11-16T23:10:01.929203700",
   "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-17T09:04:22.816549313",
+  "products" : { }
+}, {
+  "user" : "sergio",
+  "date" : "2025-11-17T09:04:38.410128338",
+  "products" : {
+    "Pizza" : 3,
+    "CocaCola" : 41,
+    "Hamburguesa" : 2
+  }
 } ]

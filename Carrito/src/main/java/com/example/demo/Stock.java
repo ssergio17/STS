@@ -8,15 +8,6 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
- Ejemplo de clase para mantener un mapa de productos, cargarlo de disco en el constructor
- y guardar en disco tras cada cambio.
-
- De esta manera vuestro controlador puede definir una variable global repositorioStock
-
- Al ser un mapa no permite repetidos
-*/
-
 public class Stock {
 	protected Map<String, Integer> stock;
 	protected final static String RUTA_FICHERO = "stock.data";
@@ -27,9 +18,6 @@ public class Stock {
 	}
 
 	public Map<String,Integer> load() {
-		// TRAZA PARA SABER DÓNDE RESUELVE LA RUTA RELATIVA:
-        // System.out.println((new File(RUTA_FICHERO)).getAbsolutePath());
-		// intentamos leer el mapa del archivo, si no podemos quedará vacío
 		try (
 			ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(RUTA_FICHERO))
 		) {
@@ -75,17 +63,5 @@ public class Stock {
 			stock.put(producto, cantidad);
 	    	save();
 		}
-
-    // Prueba de concepto para ejecutar desde Eclipe o Visual
-    /*
-	public static void main(String[] args) {
-		RepositorioStock repo = new RepositorioStock();
-		System.out.println(repo.getAll());
-		repo.add("Peras",10);
-		repo.add("Manzanas", 12);
-		repo.save();
-		
-	}
-    */
 
 }

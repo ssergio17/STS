@@ -197,7 +197,6 @@ public class CartController {
 	    return false;
 	}
 
-	
 	private List<LogEntry> LoadLog() {
 		ObjectMapper mapper = new ObjectMapper();
 		List<LogEntry> logs = null;
@@ -206,7 +205,7 @@ public class CartController {
 			File file = new File(LOG_PATH);
 			logs = mapper.readValue(file, 
 					new TypeReference<List<LogEntry>>() {});
-		} catch(IOException e) {
+		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			logs = new ArrayList<>();
 		}
@@ -214,7 +213,6 @@ public class CartController {
 	}
 	
 	private void SaveLog(List<LogEntry> logs) {
-
 	    ObjectMapper mapper = new ObjectMapper();
 	    File fichero = new File(LOG_PATH);
 

@@ -17,9 +17,11 @@ public class LogEntry {
 	public String getUser() {
 		return user;
 	}
+	
 	public String getDate() {
 		return date;
 	}
+	
 	public Map<String, Integer> getProducts() {
 		return products;
 	}
@@ -28,9 +30,11 @@ public class LogEntry {
 	public void setUser(String user) {
 		this.user = user;
 	}
+	
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
 	public void setProducts(Map<String, Integer> products) {
 		this.products = products;
 	}

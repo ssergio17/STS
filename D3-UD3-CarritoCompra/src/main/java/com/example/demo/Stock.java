@@ -40,7 +40,6 @@ public class Stock {
 			System.out.println("El fichero no existe");
 			System.out.println("Creando fichero vacío...");
 			stock = new HashMap<>();
-			save();
 		} catch(IOException e) {
 			System.out.println(e.getMessage());
 			return false;
