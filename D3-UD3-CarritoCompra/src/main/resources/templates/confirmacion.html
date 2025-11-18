@@ -5,13 +5,9 @@
     <title>Confirmación</title>
 </head>
 <body>
-
 <h1>Compra realizada</h1>
-
 <p>Gracias <b th:text="${user}"></b> por tu compra.</p>
-
 <h2>Resumen:</h2>
-
 <table border="1" cellpadding="5">
     <thead>
     <tr>
@@ -19,7 +15,6 @@
         <th>Cantidad</th>
     </tr>
     </thead>
-
     <tbody>
     <tr th:each="entry : ${purchased}">
         <td th:text="${entry.key}"></td>
@@ -27,13 +22,10 @@
     </tr>
     </tbody>
 </table>
-
 <br>
-
 <form th:action="@{/carrito}" method="get">
     <button type="submit">Volver al carrito</button>
 </form>
-
 </body>
 </html>
 
