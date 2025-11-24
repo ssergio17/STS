@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planets</title>
+</head>
+<body>
+   <form th:action="@{/planets}" method="post">
+		<label>
+			Marte
+			<input type="checkbox" value="Marte" name="planets" th:checked="${planets != null && planets.contains('Marte')}">
+		</label>
+		
+		<label>
+			Júpiter
+			<input type="checkbox" value="Júpiter" name="planets" th:checked="${planets != null && planets.contains('Júpiter')}">
+		</label>
+		
+		<label>
+			Venus
+			<input type="checkbox" value="Venus" name="planets" th:checked="${planets != null && planets.contains('Venus')}">
+		</label>
+		
+		<label>
+			Saturno
+			<input type="checkbox" value="Saturno" name="planets" th:checked="${planets != null && planets.contains('Saturno')}">
+		</label>
+		<button type="submit">Enviar</button>
+		<a th:href="@{/nacionality}">Volver atrás</a>
+   </form>
+</body>
+</html>

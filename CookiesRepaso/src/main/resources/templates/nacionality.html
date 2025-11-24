@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nacionality</title>
+</head>
+<body>
+	<form th:action="@{/nacionality}" method="post">
+		<label>
+			España
+			<input type="radio" value="España" name="nacionality" th:checked="${nacionality == 'España'}">
+		</label>
+		
+		<label>
+			Brasil
+			<input type="radio" value="Brasil" name="nacionality" th:checked="${nacionality == 'Brasil'}">
+		</label>
+		
+		<label>
+			India
+			<input type="radio" value="India" name="nacionality" th:checked="${nacionality == 'India'}">
+		</label>
+		
+		<label>
+			EEUU
+			<input type="radio" value="EEUU" name="nacionality" th:checked="${nacionality == 'EEUU'}">
+		</label>
+		<button type="submit">Enviar</button>
+		<a th:href="@{/name}">Volver atrás</a>
+	</form>
+</body>
+</html>
