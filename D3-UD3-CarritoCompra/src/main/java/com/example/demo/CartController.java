@@ -67,7 +67,7 @@ public class CartController {
 			String value = products.get(product);
 			
 			// Paso 1
-			if(value == null || value.trim().isEmpty()) {
+			if(value == null || value.isBlank()) {
 				String error = "Valor inválido para: " + product;
 				return CartError(model, session, cart, error);
 			}
