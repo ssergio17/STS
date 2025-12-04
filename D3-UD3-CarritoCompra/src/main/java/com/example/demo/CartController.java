@@ -14,16 +14,11 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CartController {
-	private final Stock stock;
+	private ProductRepository repository;
 	private final static String LOG_PATH = "logs.txt";
-	private final Map<String, Double> prices;
 	
-	public CartController() {
-		stock = new Stock();
-		prices = new HashMap();
-		prices.put("Platanos", 1.30);
-		prices.put("Kiwis", 0.9);
-		prices.put("Naranjas", 3.0);
+	public CartController(ProductRepository repository) {
+		this.repository = repository;
 	}
 	
 	@GetMapping("/")
@@ -48,8 +43,7 @@ public class CartController {
 		Map<String, Integer> cart = GetCart(session);
 		
 		model.addAttribute("user", session.getAttribute("user"));
-		model.addAttribute("products", stock.getAll());
-		model.addAttribute("prices", prices);
+		model.addAttribute("products", repository.findAll());
 		model.addAttribute("cart", cart);
 		model.addAttribute("total", CalculateTotal(cart));
 		return "carrito";
@@ -177,7 +171,8 @@ public class CartController {
 		
 		for(String product : cart.keySet()) {
 			Integer quantity = cart.get(product);
-			Double price = prices.get(product);
+			Product p = repository.findByName(product).get(0);
+			Double price = p.getPrice();
 			
 			if(quantity != null && price != null) {
 				total += quantity * price;
