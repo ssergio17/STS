@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +15,12 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CartController {
-	private ProductRepository repository;
-	private final static String LOG_PATH = "logs.txt";
+	private ProductRepository ProductRepository;
+	private LogRepository logRepository;
 	
-	public CartController(ProductRepository repository) {
-		this.repository = repository;
+	public CartController(ProductRepository repository, LogRepository logRepository) {
+		this.ProductRepository = repository;
+		this.logRepository = logRepository;
 	}
 	
 	@GetMapping("/")
@@ -43,7 +45,7 @@ public class CartController {
 		Map<String, Integer> cart = GetCart(session);
 		
 		model.addAttribute("user", session.getAttribute("user"));
-		model.addAttribute("products", repository.findAll());
+		model.addAttribute("products", ProductRepository.findAll());
 		model.addAttribute("cart", cart);
 		model.addAttribute("total", CalculateTotal(cart));
 		return "carrito";
@@ -57,8 +59,9 @@ public class CartController {
 			) {
 		Map<String, Integer> cart = GetCart(session);
 		
-		for(String product : stock.getAll().keySet()) {
-			String value = products.get(product);
+		for(Product product : ProductRepository.findAll()) {
+			String name = product.getName();
+			String value = products.get(name);
 			
 			// Paso 1
 			if(value == null || value.isBlank()) {
@@ -77,9 +80,9 @@ public class CartController {
 			
 			// Paso 3
 			if(order < 0) order = 0;
-			int realStock = stock.getOne(product);
+			int realStock = product.getStock();
 			if(order > realStock) order = realStock;
-			cart.put(product, order);
+			cart.put(name, order);
 		}
 		
 		session.setAttribute("cart", cart);
@@ -104,7 +107,14 @@ public class CartController {
 			}
 			
 			// Paso 2
-			int realStock = stock.getOne(product);
+			List<Product> result = ProductRepository.findByName(product);
+			if(result.isEmpty()) {
+				error = "Producto no encontrado en BD: " + product;
+				return CartError(model, session, cart, error);
+			}
+			
+			Product p = result.get(0);
+			int realStock = p.getStock();
 			
 			if(quantity > realStock) {
 				error = "No hay suficiente stock para: " + product;
@@ -113,8 +123,14 @@ public class CartController {
 		}
 		
 		for(String product : cart.keySet()) {
-			int newStock = stock.getOne(product) - cart.get(product);
-			stock.modify(product, newStock);
+			Integer quantity = cart.get(product);
+			List<Product> result = ProductRepository.findByName(product);
+			
+			Product p = result.get(0);
+			int newStock = p.getStock() - quantity;
+			
+			p.setStock(newStock);
+			ProductRepository.save(p);
 		}
 		
 		SaveLog(cart, session);
@@ -128,8 +144,8 @@ public class CartController {
 	
 	@GetMapping("/admin")
 	public String Admin(Model model) {
-		model.addAttribute("products", stock.getAll());
-		model.addAttribute("prices", prices);
+		Iterable<Product> products = ProductRepository.findAll();
+		model.addAttribute("products", products);
 		return "admin";
 	}
 	
@@ -137,14 +153,16 @@ public class CartController {
 	public String UpdateStock(
 			@RequestParam Map<String, String> products
 			) {
-		for(String product : stock.getAll().keySet()) {
-			String value = products.get(product);
+		for(Product p : ProductRepository.findAll()) {
+			String name = p.getName();
+			String value = products.get(name);
 			
-			if(value != null || !value.trim().isEmpty()) {
+			if(value != null && !value.trim().isEmpty()) {
 				try {
 					int newStock = Integer.parseInt(value.trim());
 					if(newStock >= 0) {
-						stock.modify(product, newStock);
+						p.setStock(newStock);
+						ProductRepository.save(p);
 					}
 				}catch(NumberFormatException e) {
 					
@@ -171,11 +189,14 @@ public class CartController {
 		
 		for(String product : cart.keySet()) {
 			Integer quantity = cart.get(product);
-			Product p = repository.findByName(product).get(0);
-			Double price = p.getPrice();
 			
-			if(quantity != null && price != null) {
-				total += quantity * price;
+			if(quantity != null && quantity > 0) {
+				List<Product> result = ProductRepository.findByName(product);
+				if(!result.isEmpty()) {
+					Product p = result.get(0);
+					double price = p.getPrice();
+					total += price * quantity;
+				}
 			}
 		}
 		return total;
@@ -189,8 +210,7 @@ public class CartController {
 			) {
 		model.addAttribute("errors", message);
 		model.addAttribute("user", session.getAttribute("user"));
-		model.addAttribute("products", stock.getAll());
-		model.addAttribute("prices", prices);
+		model.addAttribute("products", ProductRepository.findAll());
 		model.addAttribute("cart", cart);
 		model.addAttribute("total", CalculateTotal(cart));
 		return "carrito";
@@ -202,7 +222,6 @@ public class CartController {
 			) {
 		String user = (String) session.getAttribute("user");
 		String date = LocalDateTime.now().toString();
-		String line = user + " | " + date + " | ";
 		String products = "";
 		
 		for(String product : cart.keySet()) {
@@ -213,13 +232,8 @@ public class CartController {
 			products = products.substring(0, products.length()-2);
 		}
 		
-		line = line + products;
-		
-		try(FileWriter fw = new FileWriter(LOG_PATH, true)) {
-			fw.write(line + "\n");
-		} catch(IOException e) {
-			System.out.println("Error writing log: " + e.getMessage());
-		}
+		Log log = new Log(user, date, products);
+		logRepository.save(log);
 	}
 	
 }
