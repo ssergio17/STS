@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio Quiz</title>
+</head>
+<body>
+
+<h1>Iniciar Quiz</h1>
+
+<form th:action="@{/start}" method="post">
+    <label>Nombre:</label>
+    <input type="text" name="name" required>
+    <button type="submit">Empezar</button>
+</form>
+
+<h2>Opciones de administración</h2>
+
+<div>
+    <a th:href="@{/informe}">
+        <button>Ver informe completo</button>
+    </a>
+
+    <a th:href="@{/top5}">
+        <button>Ver Top 5</button>
+    </a>
+</div>
+
+
+</body>
+</html>

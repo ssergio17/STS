@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+</head>
+<body>
+
+<h1>Resultado final</h1>
+
+<p>Jugador: <span th:text="${name}"></span></p>
+<p>Puntuación: <span th:text="${points}"></span></p>
+
+<a th:href="@{/}">Volver a empezar</a>
+
+</body>
+</html>

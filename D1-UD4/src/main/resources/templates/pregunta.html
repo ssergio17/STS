@@ -1,0 +1,32 @@
+<h2 th:if="${index == 0}">
+    ¿En qué año comenzó la Segunda Guerra Mundial?
+</h2>
+
+<h2 th:if="${index == 1}">
+    ¿Java es un lenguaje orientado a objetos?
+</h2>
+
+<h2 th:if="${index == 2}">
+    ¿El Sol es una estrella?
+</h2>
+
+<form th:action="@{/respuesta}" method="post">
+
+    <div th:if="${index == 0}">
+        <input type="radio" name="points" value="1" required>1939<br>
+        <input type="radio" name="points" value="0">1941<br>
+        <input type="radio" name="points" value="0">1914<br>
+    </div>
+
+    <div th:if="${index == 1}">
+        <input type="radio" name="points" value="1" required>Sí<br>
+        <input type="radio" name="points" value="0">No<br>
+    </div>
+
+    <div th:if="${index == 2}">
+        <input type="radio" name="points" value="1" required>Sí<br>
+        <input type="radio" name="points" value="0">No<br>
+    </div>
+
+    <button type="submit">Siguiente</button>
+</form>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Informe de partidas</title>
+</head>
+<body>
+
+<h1>Informe de partidas</h1>
+
+<form th:action="@{/informe}" method="get">
+    <label>Puntuación mínima:</label>
+    <input type="number" name="minPoints">
+    <button type="submit">Filtrar</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>Jugador</th>
+        <th>Puntos</th>
+        <th>Fecha</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+    </tr>
+
+    <tr th:each="quiz : ${quizzes}">
+        <td th:text="${quiz.jugador.name}"></td>
+        <td th:text="${quiz.points}"></td>
+        <td th:text="${quiz.date}"></td>
+        <td th:text="${quiz.categoria}"></td>
+        <td>
+            <a th:href="@{/borrar(id=${quiz.id})}">Borrar</a>
+        </td>
+    </tr>
+</table>
+
+<form th:action="@{/informe}" method="get">
+    <input type="hidden" name="minPoints" value="5">
+    <button type="submit">Ver puntuaciones ≥ 5</button>
+</form>
+
+<a th:href="@{/top5}">Ver Top 5</a>
+
+</body>
+</html>
