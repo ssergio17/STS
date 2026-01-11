@@ -15,7 +15,10 @@ public class QuizController {
 	private final QuizRepository quizRepository;
 	private final JugadorRepository jugadorRepository;
 	
-	public QuizController(QuizRepository quizRepository, JugadorRepository jugadorRepository) {
+	public QuizController(
+		QuizRepository quizRepository, 
+		JugadorRepository jugadorRepository
+		) {
 		this.quizRepository = quizRepository;
 		this.jugadorRepository = jugadorRepository;
 	}
@@ -39,7 +42,6 @@ public class QuizController {
 	
 	@GetMapping("/pregunta")
 	public String pregunta(HttpSession session, Model model) {
-
 	    Integer index = (Integer) session.getAttribute("questionIndex");
 	    if (index == null) {
 	        index = 0;
